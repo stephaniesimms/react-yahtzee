@@ -21,6 +21,7 @@ exports[`matches snapshot 1`] = `
         false,
       ]
     }
+    noRollsLeft={false}
     toggleLocked={[Function]}
   />
   <button

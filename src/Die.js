@@ -15,7 +15,7 @@ class Die extends Component {
     return (
       <button
         className={this.props.locked ? "Die Die-locked" : "Die"}
-        onClick={this.handleToggleLocked}
+        onClick={this.props.noRollsLeft ? null : this.handleToggleLocked}
       >
         {this.props.val}
       </button>

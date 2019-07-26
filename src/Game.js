@@ -69,14 +69,18 @@ class Game extends Component {
   render() {
     return (
       <section>
-        <Dice dice={this.state.dice} locked={this.state.locked} toggleLocked={this.toggleLocked} />
+        <Dice dice={this.state.dice}
+        locked={this.state.locked}
+        toggleLocked={this.toggleLocked}
+        noRollsLeft={this.state.rollsLeft === 0}/>
+
         <button
           className="Game-reroll"
-          //THIS LOGIC SUX
           disabled={this.state.locked.every(x => x)}
           onClick={this.roll}>
           {this.state.rollsLeft} Rerolls Left
         </button>
+
         <ScoreTable doScore={this.doScore} scores={this.state.scores} />
       </section >
     );
@@ -84,3 +88,4 @@ class Game extends Component {
 }
 
 export default Game;
+export {NUM_DICE, NUM_ROLLS};
