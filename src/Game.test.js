@@ -40,43 +40,46 @@ describe("die click", () => {
     rerollBtn.simulate("click");
     let postRoll = wrapper.state().dice;
     expect(preRoll[0]).toEqual(postRoll[0]);
-  })
+  });
+
+  it("cannot unlock die with no rerolls left", function () {
+    let wrapper = mount(<Game />);
+
+    // use up all rerolls
+    let rerollBtn = wrapper.find(".Game-reroll");
+    for (let i = 0; i < NUM_ROLLS; i++) {
+      rerollBtn.simulate("click");
+    }
+
+    //after no rerolls left, click any die and make sure it is still disabled
+    //check if state is still {locked: [all true]}
+    let firstDie = wrapper.find(".Die").first();
+    firstDie.simulate("click");
+    expect(wrapper.state().locked.every(d => d)).toEqual(true);
+  });
 });
 
-it("cannot unlock die with no rerolls left", function () {
-  let wrapper = mount(<Game />);
+describe("using score line", () => {
+  it("can only use score lines once", function () {
+    let wrapper = mount(<Game />);
+  
+    // mock a dice set
+    wrapper.state().dice = [1, 1, 2, 2, 4];
+  
+    //use Ones score row
+    let preClickOnesRow = wrapper.find("RuleRow").first();
+    preClickOnesRow.simulate("click");
 
-  // use up all rerolls
-  let rerollBtn = wrapper.find(".Game-reroll");
-  for (let i = 0; i < NUM_ROLLS; i++) {
-    rerollBtn.simulate("click");
-  }
-
-  //after no rerolls left, click any die and make sure it is still disabled
-  //check if state is still {locked: [all true]}
-  let firstDie = wrapper.find(".Die").first();
-  firstDie.simulate("click");
-  expect(wrapper.state().locked.every(d => d)).toEqual(true);
-});
-
-it("cannot reuse score line", function () {
-  let wrapper = mount(<Game />);
-
-  // mock a dice set
-  wrapper.state().dice = [1,1,2,2,4];
-
-  //use Ones score row
-  let preClickOnesRow = wrapper.find("RuleRow").first();
-  preClickOnesRow.simulate("click");
-  //check Ones score row
-  let postClickOnesRow = wrapper.find("RuleRow").first();
-  expect(postClickOnesRow.props().score).toEqual(2);
-
-  //mock a different dice set
-  wrapper.state().dice = [1,1,1,1,1]
-  //click it again
-  postClickOnesRow.simulate("click");
-  // expect that the score has not changed
-  let finalOnesRow = wrapper.find("RuleRow").first();
-  expect(finalOnesRow.props().score).toEqual(2);
+    //check that score is created when clicking on unused score line
+    let postClickOnesRow = wrapper.find("RuleRow").first();
+    expect(postClickOnesRow.props().score).toEqual(2);
+  
+    //mock a different dice set
+    wrapper.state().dice = [1, 1, 1, 1, 1]
+    //click it again
+    postClickOnesRow.simulate("click");
+    // expect that the score has not changed
+    let finalOnesRow = wrapper.find("RuleRow").first();
+    expect(finalOnesRow.props().score).toEqual(2);
+  });
 })

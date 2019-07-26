@@ -27,7 +27,7 @@ class Game extends Component {
         largeStraight: undefined,
         yahtzee: undefined,
         chance: undefined
-      }
+      },
     };
     this.roll = this.roll.bind(this);
     this.doScore = this.doScore.bind(this);
@@ -39,6 +39,7 @@ class Game extends Component {
     this.setState(st => ({
       dice: st.dice.map(
         (d, i) => st.locked[i] ? d : Math.ceil(Math.random() * 6)),
+        // if using last reroll, lock everything, else maintain locked state
       locked: st.rollsLeft > 1 ? st.locked : Array(NUM_DICE).fill(true),
       rollsLeft: st.rollsLeft - 1,
     }));

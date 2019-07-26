@@ -9,7 +9,13 @@ it("renders die without crashing", function () {
 });
 
 it("matches snapshot for locked die", function () {
-  let wrapper = shallow(<Die />);
+  let wrapper = shallow(<Die locked={true}/>);
+  let serialized = toJson(wrapper);
+  expect(serialized).toMatchSnapshot();
+});
+
+it("matches snapshot for unlocked die", function () {
+  let wrapper = shallow(<Die locked={false}/>);
   let serialized = toJson(wrapper);
   expect(serialized).toMatchSnapshot();
 });

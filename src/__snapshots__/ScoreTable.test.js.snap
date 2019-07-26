@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="ScoreTable"
+>
+  <section
+    className="ScoreTable-section"
+  >
+    <h2>
+      Upper
+    </h2>
+    <table
+      cellSpacing="0"
+    >
+      <tbody>
+        <RuleRow
+          doScore={[Function]}
+          name="Ones"
+          score={2}
+        />
+        <RuleRow
+          doScore={[Function]}
+          name="Twos"
+          score={4}
+        />
+        <RuleRow
+          doScore={[Function]}
+          name="Threes"
+          score={6}
+        />
+        <RuleRow
+          doScore={[Function]}
+          name="Fours"
+          score={8}
+        />
+        <RuleRow
+          doScore={[Function]}
+          name="Fives"
+          score={10}
+        />
+        <RuleRow
+          doScore={[Function]}
+          name="Sixes"
+          score={12}
+        />
+      </tbody>
+    </table>
+  </section>
+  <section
+    className="ScoreTable-section ScoreTable-section-lower"
+  >
+    <h2>
+      Lower
+    </h2>
+    <table
+      cellSpacing="0"
+    >
+      <tbody>
+        <RuleRow
+          doScore={[Function]}
+          name="Three of Kind"
+          score={3}
+        />
+        <RuleRow
+          doScore={[Function]}
+          name="Four of Kind"
+          score={4}
+        />
+        <RuleRow
+          doScore={[Function]}
+          name="Full House"
+          score={25}
+        />
+        <RuleRow
+          doScore={[Function]}
+          name="Small Straight"
+          score={30}
+        />
+        <RuleRow
+          doScore={[Function]}
+          name="Large Straight"
+          score={40}
+        />
+        <RuleRow
+          doScore={[Function]}
+          name="Yahtzee"
+          score={50}
+        />
+        <RuleRow
+          doScore={[Function]}
+          name="Chance"
+          score={5}
+        />
+      </tbody>
+    </table>
+  </section>
+</div>
+`;
