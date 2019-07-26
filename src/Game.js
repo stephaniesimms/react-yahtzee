@@ -31,6 +31,7 @@ class Game extends Component {
     };
     this.roll = this.roll.bind(this);
     this.doScore = this.doScore.bind(this);
+    this.toggleLocked = this.toggleLocked.bind(this);
   }
 
   roll(evt) {
@@ -43,7 +44,6 @@ class Game extends Component {
     }));
   }
 
-  //MAYBE HAVE TO BIND THIS?!?!??!??????!??
   toggleLocked(idx) {
     // toggle whether idx is in locked or not
     this.setState(st => ({
