@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import toJson from "enzyme-to-json";
-import Game, {NUM_ROLLS} from "./Game";
+import Game, { NUM_ROLLS } from "./Game";
 
 
 it("renders without crashing", function () {
@@ -43,12 +43,12 @@ describe("die click", () => {
   })
 });
 
-it("cannot unlock die if no rerolls left", function () {
+it("cannot unlock die with no rerolls left", function () {
   let wrapper = mount(<Game />);
 
   // use up all rerolls
   let rerollBtn = wrapper.find(".Game-reroll");
-  for (let i=0; i < NUM_ROLLS; i++){
+  for (let i = 0; i < NUM_ROLLS; i++) {
     rerollBtn.simulate("click");
   }
 
@@ -58,3 +58,25 @@ it("cannot unlock die if no rerolls left", function () {
   firstDie.simulate("click");
   expect(wrapper.state().locked.every(d => d)).toEqual(true);
 });
+
+it("cannot reuse score line", function () {
+  let wrapper = mount(<Game />);
+
+  // mock a dice set
+  wrapper.state().dice = [1,1,2,2,4];
+
+  //use Ones score row
+  let preClickOnesRow = wrapper.find("RuleRow").first();
+  preClickOnesRow.simulate("click");
+  //check Ones score row
+  let postClickOnesRow = wrapper.find("RuleRow").first();
+  expect(postClickOnesRow.props().score).toEqual(2);
+
+  //mock a different dice set
+  wrapper.state().dice = [1,1,1,1,1]
+  //click it again
+  postClickOnesRow.simulate("click");
+  // expect that the score has not changed
+  let finalOnesRow = wrapper.find("RuleRow").first();
+  expect(finalOnesRow.props().score).toEqual(2);
+})
