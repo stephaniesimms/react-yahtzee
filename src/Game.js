@@ -57,6 +57,7 @@ class Game extends Component {
 
   doScore(rulename, ruleFn) {
     // evaluate this ruleFn with the dice and score this rulename
+    console.log("RULEFN IS ", typeof ruleFn)
     this.setState(st => ({
       scores: { ...st.scores, [rulename]: ruleFn(this.state.dice) },
       rollsLeft: NUM_ROLLS,
@@ -71,6 +72,7 @@ class Game extends Component {
         <Dice dice={this.state.dice} locked={this.state.locked} toggleLocked={this.toggleLocked} />
         <button
           className="Game-reroll"
+          //THIS LOGIC SUX
           disabled={this.state.locked.every(x => x)}
           onClick={this.roll}>
           {this.state.rollsLeft} Rerolls Left
