@@ -32,6 +32,12 @@ class Game extends Component {
     this.roll = this.roll.bind(this);
     this.doScore = this.doScore.bind(this);
     this.toggleLocked = this.toggleLocked.bind(this);
+    this.resetGame = this.resetGame.bind(this);
+  }
+
+  // initializes game on page load
+  componentDidMount() {
+    this.roll();
   }
 
   roll(evt) {
@@ -39,7 +45,7 @@ class Game extends Component {
     this.setState(st => ({
       dice: st.dice.map(
         (d, i) => st.locked[i] ? d : Math.ceil(Math.random() * 6)),
-        // if using last reroll, lock everything, else maintain locked state
+      // if using last reroll, lock everything, else maintain locked state
       locked: st.rollsLeft > 1 ? st.locked : Array(NUM_DICE).fill(true),
       rollsLeft: st.rollsLeft - 1,
     }));
@@ -66,13 +72,37 @@ class Game extends Component {
     this.roll();
   }
 
+  resetGame() {
+    this.setState({
+      dice: Array.from({ length: NUM_DICE }),
+      locked: Array(NUM_DICE).fill(false),
+      rollsLeft: NUM_ROLLS,
+      scores: {
+        ones: undefined,
+        twos: undefined,
+        threes: undefined,
+        fours: undefined,
+        fives: undefined,
+        sixes: undefined,
+        threeOfKind: undefined,
+        fourOfKind: undefined,
+        fullHouse: undefined,
+        smallStraight: undefined,
+        largeStraight: undefined,
+        yahtzee: undefined,
+        chance: undefined
+      },
+    })
+    this.roll()
+  }
+
   render() {
     return (
       <section>
         <Dice dice={this.state.dice}
-        locked={this.state.locked}
-        toggleLocked={this.toggleLocked}
-        noRollsLeft={this.state.rollsLeft === 0}/>
+          locked={this.state.locked}
+          toggleLocked={this.toggleLocked}
+          noRollsLeft={this.state.rollsLeft === 0} />
 
         <button
           className="Game-reroll"
@@ -82,10 +112,19 @@ class Game extends Component {
         </button>
 
         <ScoreTable doScore={this.doScore} scores={this.state.scores} />
+        <br />
+        <b>Total Score: {Object.values(this.state.scores).reduce(
+          (prev, curr) => (prev || 0) + (curr || 0))}
+        </b>
+        <br /><br />
+        {Object.values(this.state.scores).every(s => s !== undefined) ?
+          <button onClick={this.resetGame}>GAME OVER: PLAY AGAIN?</button>
+          : null}
+
       </section >
     );
   }
 }
 
 export default Game;
-export {NUM_DICE, NUM_ROLLS};
+export { NUM_DICE, NUM_ROLLS };

@@ -5,11 +5,11 @@ exports[`matches snapshot 1`] = `
   <Dice
     dice={
       Array [
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
+        3,
+        4,
+        6,
+        6,
+        1,
       ]
     }
     locked={
@@ -29,7 +29,7 @@ exports[`matches snapshot 1`] = `
     disabled={false}
     onClick={[Function]}
   >
-    3
+    2
      Rerolls Left
   </button>
   <ScoreTable
@@ -52,5 +52,12 @@ exports[`matches snapshot 1`] = `
       }
     }
   />
+  <br />
+  <b>
+    Total Score: 
+    0
+  </b>
+  <br />
+  <br />
 </section>
 `;

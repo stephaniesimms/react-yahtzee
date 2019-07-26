@@ -64,7 +64,7 @@ describe("using score line", () => {
     let wrapper = mount(<Game />);
   
     // mock a dice set
-    wrapper.state().dice = [1, 1, 2, 2, 4];
+    wrapper.setState({dice: [1, 1, 2, 2, 4]});
   
     //use Ones score row
     let preClickOnesRow = wrapper.find("RuleRow").first();
@@ -75,7 +75,7 @@ describe("using score line", () => {
     expect(postClickOnesRow.props().score).toEqual(2);
   
     //mock a different dice set
-    wrapper.state().dice = [1, 1, 1, 1, 1]
+    wrapper.setState({dice: [1, 1, 1, 1, 1]});
     //click it again
     postClickOnesRow.simulate("click");
     // expect that the score has not changed
